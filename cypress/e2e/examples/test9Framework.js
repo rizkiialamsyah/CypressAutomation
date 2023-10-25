@@ -14,20 +14,20 @@ describe("My ninth Test Suite creating frameworks", () => {
   });
 
   it("My ninth Test Case frameworks", () => {
-    const pageObject = new homePage();
-    cy.visit("https://rahulshettyacademy.com/angularpractice");
-    pageObject.getEditBox().type(globalThis.data.name);
-    pageObject.getEditBox().should("have.attr", "minlength", 2);
-    pageObject.getEmailBox().type(globalThis.data.email);
-    pageObject.getPasswordbox().type(globalThis.data.password);
-    pageObject.getCheckBox().check();
-    pageObject.getGender().select(globalThis.data.gender);
+    const homeObject = new homePage();
+    cy.visit(Cypress.env("url") + "/angularpractice");
+    homeObject.getEditBox().type(globalThis.data.name);
+    homeObject.getEditBox().should("have.attr", "minlength", 2);
+    homeObject.getEmailBox().type(globalThis.data.email);
+    homeObject.getPasswordbox().type(globalThis.data.password);
+    homeObject.getCheckBox().check();
+    homeObject.getGender().select(globalThis.data.gender);
 
-    pageObject
+    homeObject
       .getTwoWayDataBinding()
       .should("have.value", globalThis.data.name);
 
-    pageObject.getEntrepreneur().should("be.disabled");
+    homeObject.getEntrepreneur().should("be.disabled");
   });
 
   it("Memilih 2 produk masuk cart dan checkout", () => {
@@ -35,22 +35,33 @@ describe("My ninth Test Suite creating frameworks", () => {
     const cartObject = new cartPage();
     const checkoutObject = new checkoutPage();
 
-    cy.visit("https://rahulshettyacademy.com/angularpractice");
+    cy.visit(Cypress.env("url") + "/angularpractice");
 
     shopObject.getShopPage().click();
     globalThis.data.productName.forEach((element) => {
       cy.selectProduct(element);
     });
 
+    //cart page
     shopObject.getCheckoutButton().click();
 
     var sum = 0;
-    cy.get("tr td:nth-child(4) strong").each(($el, index, list) => {
-      const priceAmount = $el.text();
+    cy.get("tr td:nth-child(4) strong")
+      .each(($el, index, list) => {
+        const priceAmount = $el.text();
+        var res = priceAmount.split(" ");
+        res = res[1].trim();
+        sum = Number(sum) + Number(res);
+      })
+      .then(() => {
+        cy.log(sum);
+      });
+
+    cy.get("h3 strong").then((element) => {
+      const priceAmount = element.text();
       var res = priceAmount.split(" ");
-      res = res[1].trim();
-      sum = sum + Number(res);
-      cy.log(sum);
+      var total = res[1].trim();
+      expect(Number(total)).to.equal(sum);
     });
 
     cartObject.getCheckoutPage().click();
@@ -59,8 +70,7 @@ describe("My ninth Test Suite creating frameworks", () => {
     cy.get("#checkbox2").click({ force: true });
     cy.get("input[type='submit']").click();
 
-    //short troubleshooting
-    //cy.get(".alert-success").contains("Success!");
+    //short troubleshooting //cy.get(".alert-success").contains("Success!");
 
     //using element object
     cy.get(".alert-success").then((element) => {

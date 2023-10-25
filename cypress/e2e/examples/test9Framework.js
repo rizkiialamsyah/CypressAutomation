@@ -44,11 +44,13 @@ describe("My ninth Test Suite creating frameworks", () => {
 
     shopObject.getCheckoutButton().click();
 
+    var sum = 0;
     cy.get("tr td:nth-child(4) strong").each(($el, index, list) => {
-      const actualText = $el.text();
-      var res = actualText.split(" ");
-      res = res[1].trim;
-      cy.log(res);
+      const priceAmount = $el.text();
+      var res = priceAmount.split(" ");
+      res = res[1].trim();
+      sum = sum + Number(res);
+      cy.log(sum);
     });
 
     cartObject.getCheckoutPage().click();

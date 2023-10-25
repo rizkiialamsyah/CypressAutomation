@@ -4,7 +4,6 @@ describe("My Second Test Suite", () => {
   it("My first Test Case", () => {
     cy.visit("https://rahulshettyacademy.com/seleniumPractise/#/");
     cy.get(".search-keyword").type("ca");
-    cy.wait(2000);
 
     //parent child chaining
     cy.get(".products").as("productLocator");

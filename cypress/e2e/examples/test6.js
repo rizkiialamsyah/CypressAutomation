@@ -2,7 +2,7 @@
 
 describe("My Fifth Test Suite handling Web Table", () => {
   it("My fifth Test Case", () => {
-    cy.visit("https://rahulshettyacademy.com/AutomationPractice");
+    cy.visit(Cypress.env("url") + "/AutomationPractice");
     cy.get("tr td:nth-child(2)").each(($el, index, list) => {
       const textFinder = $el.text();
       if (textFinder.includes("TestNG")) {
@@ -18,7 +18,7 @@ describe("My Fifth Test Suite handling Web Table", () => {
   });
 
   it("Test Web Table Head Fixed", () => {
-    cy.visit("https://rahulshettyacademy.com/AutomationPractice");
+    cy.visit(Cypress.env("url") + "/AutomationPractice");
     cy.get("tr td:nth-child(1)").each(($el, index, list) => {
       const pencariTeks = $el.text();
       if (pencariTeks.includes("Ivory")) {

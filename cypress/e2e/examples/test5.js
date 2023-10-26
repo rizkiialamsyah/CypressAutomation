@@ -2,7 +2,7 @@
 
 describe("My Fifth Test Suite handling child tab", () => {
   it("My fifth Test Case", () => {
-    cy.visit("https://rahulshettyacademy.com/AutomationPractice");
+    cy.visit(Cypress.env("url") + "/AutomationPractice");
     cy.get("#opentab").invoke("removeAttr", "target").click();
 
     cy.origin("https://www.qaclickacademy.com", () => {

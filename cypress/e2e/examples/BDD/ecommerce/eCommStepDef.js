@@ -9,6 +9,7 @@ const homeObject = new homePage();
 const shopObject = new shopPage();
 const cartObject = new cartPage();
 const checkoutObject = new checkoutPage();
+let rawName;
 
 Given("I open Ecommerce Page", () => {
   cy.visit(Cypress.env("url") + "/angularpractice");
@@ -60,15 +61,17 @@ Then("Select the country submit and verify thankyou", () => {
 });
 
 //When i fill the forms details
-When("I fill the forms details", () => {
-  homeObject.getEditBox().type(globalThis.data.name);
+When("I fill the forms details", (dataTable) => {
+  rawName = dataTable.rawTable[1][0];
+  //data tabel [Grace noona, Female]
+  homeObject.getEditBox().type(dataTable.rawTable[1][0]);
   homeObject.getEmailBox().type(globalThis.data.email);
   homeObject.getPasswordbox().type(globalThis.data.password);
   homeObject.getCheckBox().check();
-  homeObject.getGender().select(globalThis.data.gender);
+  homeObject.getGender().select(dataTable.rawTable[1][1]);
 });
 Then("validate the forms behaviour", () => {
-  homeObject.getTwoWayDataBinding().should("have.value", globalThis.data.name);
+  homeObject.getTwoWayDataBinding().should("have.value", rawName);
   homeObject.getEditBox().should("have.attr", "minlength", 2);
   homeObject.getEntrepreneur().should("be.disabled");
   Cypress.config("defaultCommandTimeout", 7000);

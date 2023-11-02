@@ -31,3 +31,34 @@
     "convert-excel-to-json": "^1.7.0"
   }
 }
+{
+  "name": "cypressautomation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules\\.bin\\cypress run",
+    "headTest": "npm run test -- --headed",
+    "edgeTest": "npm run test -- --browser edge",
+    "recordDashboardTest": "npm run test -- --record --key 3bce5a02-d618-4ace-9f19-a5571b548db2",
+    "GreenKarTest": "npm run test -- --spec \"cypress/e2e/GreenKart/*\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@cypress/browserify-preprocessor": "^3.0.2",
+    "cypress": "^13.3.0",
+    "cypress-iframe": "^1.0.1",
+    "multiple-cucumber-html-reporter": "^3.5.0"
+  },
+  "cypress-cucumber-preprocessor": {
+    "json": {
+      "enabled": true,
+      "output": "cypress/cucumberReport/results.json"
+    }
+  },
+  "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^18.0.6",
+    "@cypress/browserify-preprocessor": "latest"
+  }
+}

@@ -16,7 +16,8 @@
     "@cypress/browserify-preprocessor": "^3.0.2",
     "cypress": "^13.3.0",
     "cypress-iframe": "^1.0.1",
-    "multiple-cucumber-html-reporter": "^3.5.0"
+    "multiple-cucumber-html-reporter": "^3.5.0",
+    "neat-csv": "5.1.0"
   },
   "cypress-cucumber-preprocessor": {
     "json": {
